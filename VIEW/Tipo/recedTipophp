@@ -1,0 +1,14 @@
+<?php
+    include_once '../../MODEL/Tipo.php';
+    include_once '../../BLL/bllTipo.php';
+
+   $tipo = new \MODEL\Tipo(); 
+
+   $tipo->setId($_POST['txtID']);
+   $tipo->setTipo($_POST['txtTipo']);
+
+   $bll = new \BLL\bllTipo(); 
+   $bll->Update($tipo); 
+
+   header("location: lstTipo.php");
+?>

@@ -1,52 +1,83 @@
 <?php
-    namespace DAL; 
-    include_once __DIR__. '\conexao.php';
-    include_once  'C:\xampp\htdocs\MercadoIGL\MODEL\modelFornecedor.php';
-
-   // include_once '../../servicos/DAL/conexao.php';
-  //  include_once '../MODEL/Area.php';
+    namespace DAL;
+    include_once 'conexao.php';
+    include_once 'C:\xampp\htdocs\MercadoIGL\MODEL\Fornecedor.php';
 
     class dalFornecedor{
-
         public function Select(){
-          $sql = "select * from fornecedor;";
-
-          $con = Conexao::conectar(); 
-          $result = $con->query($sql); 
-          $con = Conexao::desconectar();
-          
-          //echo count ($result);
-          
-           //$lstAreas[] = new \MODEL\Area(); 
-          foreach($result as $linha){
-                        
-            $fornecedor = new \MODEL\Fornecedor();
             
-            $fornecedor->setCNPJ($linha['CNPJ']);
-            $fornecedor->setRazaoSocial($linha['Razao Social']);  
-            $fornecedor->setTelefone($linha['Telefone']);      
-            $fornecedor->setCidade($linha['Cidade']);  
+            $con = Conexao::conectar();
+            $sql = "select * from fornecedor;";
+            $result = $con->query($sql);
+            $con = Conexao::desconectar();
 
-          }
-                   
+            //return $result;
+
+            foreach($result as $linha){
+                $fornecedor = new \MODEL\Fornecedor();
+    
+                $fornecedor->setId($linha['id']);
+                $fornecedor->setCnpj($linha['cnpj']);
+                $fornecedor->setRazao($linha['razao']);
+                $fornecedor->setTelefone($linha['telefone']);
+                $fornecedor->setCidade($linha['cidade']);
+    
+                $lstFornecedor[] = $fornecedor;
+            }
+            return $lstFornecedor;
         }
 
 
-        public function Insert(\MODEL\Fornecedor $fornecedor){
-           
-            //echo "CPF: ".  $operador->getCPF() . "</br>";
-            //echo "Nome: ". $operador->getNome(). "</br>";
-            //echo "Cargo: " . $operador->getCargo() . "</br>";
-            //echo "Senha: " . $operador->getSenha() . "</br>";
+        public function SelectID(int $id){
+            $sql = "select * from fornecedor where id=?;";
+            $pdo = Conexao::conectar(); 
+            $query = $pdo->prepare($sql);
+            $query->execute (array($id));
+            $linha = $query->fetch(\PDO::FETCH_ASSOC);
+            Conexao::desconectar(); 
 
-            $con = Conexao::conectar(); 
-            $sql = "INSERT INTO fornecedor (CNPJ, Razao Social, Telefone, Cidade) VALUES  ('{$fornecedor->getCNPJ()}', '{$fornecedor->getRazaoSocial()}','{$fornecedor->getTelefone()}', '{$fornecedor -> getCidade()}');";
-            $result = $con->query($sql); 
+            $fornecedor = new \MODEL\Fornecedor(); 
+            $fornecedor->setId($linha['id']);
+            $fornecedor->setCnpj($linha['cnpj']);
+            $fornecedor->setRazao($linha['razao']);
+            $fornecedor->setTelefone($linha['telefone']);
+            $fornecedor->setCidade($linha['cidade']);
+
+            return $fornecedor; 
+        }
+
+        public function Insert(\MODEL\Fornecedor $fornecedor){
+            $con = Conexao::conectar();
+            $sql = "INSERT INTO fornecedor (cnpj, razao, telefone, cidade) 
+                    VALUES ('{$fornecedor->getCnpj()}', 
+                            '{$fornecedor->getRazao()}', 
+                            '{$fornecedor->getTelefone()}',
+                            '{$fornecedor->getCidade()}');";
+            $result = $con->query($sql);
+            $con = Conexao::desconectar();
+            return $result;
+        }
+
+        public function Update(\MODEL\Fornecedor $fornecedor){
+            $sql = "UPDATE fornecedor SET cnpj=?, razao=?, telefone=?, cidade=? WHERE id=?";
+
+            $pdo = Conexao::conectar(); 
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); 
+            $query = $pdo->prepare($sql);
+            $result = $query->execute(array($fornecedor->getCnpj(), $fornecedor->getRazao(), $fornecedor->getTelefone(), $fornecedor->getCidade(), $fornecedor->getID()));
             $con = Conexao::desconectar();
             return $result; 
         }
 
-       
-    }
+        public function Delete($id){
+            $sql = "DELETE FROM fornecedor WHERE id=?";
 
-?> 
+            $pdo = Conexao::conectar(); 
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); 
+            $query = $pdo->prepare($sql);
+            $result = $query->execute(array($id));
+            $con = Conexao::desconectar();
+            return $result; 
+        }
+    }
+?>

@@ -1,75 +1,45 @@
 <?php
-    namespace BLL; 
-    use DAL\dalFornecedor; 
-    include_once '../../DAL/dalFornecedor.php';
-    
-    class bllFornecedor {
-        public function Select (){
-            $dal = new  \Dal\dalFornecedor(); 
-            //linhas de código com regras de negócio
-           
+    namespace BLL;
+    use DAL\dalFornecedor;
+    include_once "C:/xampp/htdocs/MercadoIGL/DAL/dalFornecedor.php";
+
+    class bllFornecedor{
+        public function Select(){
+            $dal = new \DAL\dalFornecedor();
+
+
             return $dal->Select();
         }
 
-        public function SelectCNPJ (int $CNPJ){
-            $dal = new  \Dal\dalFornecedor(); 
-            //linhas de código com regras de negócio
-           
-            return $dal->Select($CNPJ);
+        public function SelectID (int $id){
+            $dal = new  \DAL\dalFornecedor(); 
+
+
+            return $dal->SelectID($id);
         }
 
-        public function SelectRazaoSocial(string $RazaoSocial){
-            $dalFornecedor = new dalFornecedor(); 
-            return $dalFornecedor->Select($RazaoSocial);
+        public function Insert(\MODEL\Fornecedor $fornecedor){
+            $dal = new \DAL\dalFornecedor();
+    
+            $dal->Insert($fornecedor);
         }
 
-        public function SelectTelefone(string $Telefone){
-            $dalFornecedor = new dalFornecedor(); 
-            return $dalFornecedor->Select($Telefone);
-        }
-
-        public function SelectCidade(string $Cidade){
-            $dalFornecedor = new dalFornecedor(); 
-            return $dalFornecedor->Select($Cidade);
-        }
-      
-        public function Insert (\MODEL\Funcionario $funcionario){
-           
-            //echo "Nome: {$operador->getNome()} </br>"; 
-            //echo "Aniversario: {$operador->getAniversario()} </br>"; 
-            // echo "Salario: {$operador->getSalario()} </br>"; 
-
-            // regras de negócios devem ser implementadas neste local.
-
-           $dal = new \DAL\dalFuncionario(); 
-
-           $dal->Insert($funcionario);
-          
-        }
-
-        public function Update (\MODEL\Funcionario $funcionario){
-
-           // regras de negócios devem ser implementadas neste local.
-
-           $dal = new \DAL\dalFuncionario(); 
-
-           $dal->Update($funcionario);
-          
-        }
-
-        public function Delete (int $CPF){
+        public function Update (\MODEL\Fornecedor $fornecedor){
 
             // regras de negócios devem ser implementadas neste local.
  
-            $dal = new \DAL\dalFuncionario(); 
+            $dal = new \DAL\dalFornecedor(); 
  
-            $dal->Delete($CPF);
-           
-         }
+            $dal->Update($fornecedor);
+        }
 
+        public function Delete (int $id){
+
+            // regras de negócios devem ser implementadas neste local.
+ 
+            $dal = new \DAL\dalFornecedor(); 
+ 
+            $dal->Delete($id);
+        }
     }
-
-
-
-
 ?>

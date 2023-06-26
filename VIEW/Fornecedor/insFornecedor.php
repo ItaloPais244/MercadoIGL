@@ -12,7 +12,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>Inserir Tipo do Produto</title>
+    <title>Inserir Fornecedor</title>
 </head>
 
 <body>
@@ -20,13 +20,25 @@
 
     <div class="container indigo lighten-3 black-text col s12">
         <div class="center orange">
-            <h1>Inserir Tipo do Produto</h1>
+            <h1>Inserir Fornecedor</h1>
         </div>
         <div class="row">
-            <form action="recinsTipo.php" method="POST" id="frminsTipo" class="col s12">
+            <form action="recinsFornecedor.php" method="POST" id="frminsFornecedor" class="col s12">
                 <div class="input-field col s8">
-                    <input id="tipo" type="text" name="txtTipo">
-                    <label for="tipo" class="black-text bold">Tipo</label>
+                    <input id="cnpj" type="number" name="txtCnpj">
+                    <label for="cnpj" class="black-text bold">CNPJ</label>
+                </div>
+                <div class="input-field col s8">
+                    <input id="razao" type="text" name="txtRazao">
+                    <label for="razao" class="black-text bold">RAZÃO SOCIAL</label>
+                </div>
+                <div class="input-field col s8">
+                    <input id="telefone" type="number" name="txtTelefone">
+                    <label for="telefone" class="black-text bold">TELEFONE</label>
+                </div>
+                <div class="input-field col s8">
+                    <input id="cidade" type="text" name="txtCidade">
+                    <label for="cidade" class="black-text bold">CIDADE</label>
                 </div>
                 <div class="brown lighten-3 center col s12">
                     <br>

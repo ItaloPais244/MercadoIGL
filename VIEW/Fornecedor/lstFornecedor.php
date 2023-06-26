@@ -1,8 +1,8 @@
 <?php
-    use BLL\bllTipo;
-    include_once 'C:\xampp\htdocs\MercadoIGL\BLL\bllTipo.php';
-    $bll = new \BLL\bllTipo;
-    $lstTipo = $bll->Select();
+    use BLL\bllFornecedor;
+    include_once '../../BLL/bllForncedor.php';
+    $bll = new \BLL\bllFornecedor;
+    $lstFornecedor = $bll->Select();
 ?>
 
 <!DOCTYPE html>
@@ -22,37 +22,41 @@
 <body>
     <?php include_once '../menu.php' ?>
 
-    <h1>Listar Tipo dos Produtos</h1>
-
-
+    <h1>Tabela de Fornecedores</h1>
 
     <table class="striped blue">
         <tr>
             <th>ID</th>
-            <th>TIPO</th>
+            <th>CNPJ</th>
+            <th>RAZAO SOCIAL</th>
+            <th>TELEFONE</th>
+            <th>CIDADE</th>
             <th>FUNÇÃO -
                 <a class="btn-floating btn-small waves-effect waves-light green"
-                    onclick="JavaScript:location.href='insTipo.php'">
+                    onclick="JavaScript:location.href='insFornecedor.php'">
                     <i class="material-icons">add</i>
                 </a>
             </th>
         </tr>
         <?php
-            foreach($lstTipo as $tipo){
+            foreach($lstFornecedor as $fornecedor){
         ?>
         <tr>
-            <td><?php echo $tipo->getId(); ?></td>
-            <td><?php echo $tipo->getTipo(); ?></td>
+            <td><?php echo $fornecedor->getId(); ?></td>
+            <td><?php echo $fornecedor->getCnpj(); ?></td>
+            <td><?php echo $fornecedor->getRazao(); ?></td>
+            <td><?php echo $fornecedor->getTelefone(); ?></td>
+            <td><?php echo $fornecedor->getCidade(); ?></td>
             <td>
-                <a class="btn-floating btn-small waves-effect waves-light orange" onclick="JavaScript:location.href='edtTipo.php?id=' +
-                                     <?php echo $tipo->getId();?>">
+                <a class="btn-floating btn-small waves-effect waves-light orange" onclick="JavaScript:location.href='edtFornecedor.php?id=' +
+                                     <?php echo $fornecedor->getId();?>">
                     <i class="material-icons">edit</i>
                 </a>
-                <a class="btn-floating btn-small waves-effect waves-light blue" onclick="JavaScript:location.href='detTipo.php?id=' +
-                                     <?php echo $tipo->getId();?>">
+                <a class="btn-floating btn-small waves-effect waves-light blue" onclick="JavaScript:location.href='detFornecedor.php?id=' +
+                                     <?php echo $fornecedor->getId();?>">
                     <i class="material-icons">details</i>
                 </a>
-                <a class="btn-floating btn-small waves-effect waves-light red" onclick="JavaScript:remover(<?php echo $tipo->getId();?>)">
+                <a class="btn-floating btn-small waves-effect waves-light red" onclick="JavaScript:remover(<?php echo $fornecedor->getId();?>)">
                     <i class="material-icons">delete</i>
                 </a>
             </td>
@@ -69,8 +73,8 @@
 
 <script>
     function remover(id){
-        if (confirm('Excluir o Tipo do Produto ' + id + '?')){
-            location.href = 'remTipo.php?id=' + id;
+        if (confirm('Excluir o Fornecedor ' + id + '?')){
+            location.href = 'remFornecedor.php?id=' + id;
         }
     }
 </script>
